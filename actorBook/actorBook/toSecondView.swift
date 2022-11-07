@@ -17,8 +17,20 @@ class toSecondView: UIViewController {
     
     var selectedMatrix : Matrix?
     
+    var isMorpheus = true
+    var isNeo = true
+    var isTrinity = true
+    var isSmith = true
+    var isCypher = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        imageView.isUserInteractionEnabled = true
+        
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(changePic))
+        
+        imageView.addGestureRecognizer(gestureRecognizer)
         
         nameLabel.text = selectedMatrix?.name
         nameInFılmLabel.text = selectedMatrix?.nameInFilm
@@ -27,6 +39,21 @@ class toSecondView: UIViewController {
 
 
     }
+    
+    @objc func changePic(){
+        if isNeo  == true {
+            imageView.image = UIImage(named: "neo")
+            nameLabel.text = "Neo"
+            isNeo = false
+        } else {
+            imageView.image = UIImage(named: "keanu")
+            nameLabel.text = "Kean Reeves"
+            isNeo = true
+        }
+        
+    }
+    
+    
 
 
 
