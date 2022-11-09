@@ -27,9 +27,7 @@ class toSecondView: UIViewController {
         super.viewDidLoad()
         
         imageView.isUserInteractionEnabled = true
-        
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(changePic))
-        
         imageView.addGestureRecognizer(gestureRecognizer)
         
         nameLabel.text = selectedMatrix?.name
