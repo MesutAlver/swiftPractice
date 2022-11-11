@@ -37,7 +37,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         arrayMatrix.append(smith)
         arrayMatrix.append(cypher)
 
-        
+        navigationController?.navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(addButton))
+    }
+    
+    
+    @objc func addButton() {
+            // segue
         
     }
     
