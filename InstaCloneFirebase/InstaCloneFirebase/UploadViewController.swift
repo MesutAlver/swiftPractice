@@ -8,6 +8,7 @@
 import UIKit
 import Firebase
 import FirebaseStorage
+import FirebaseFirestore
 
 class UploadViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -30,7 +31,7 @@ class UploadViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     @objc func selectImage() {
-        
+        // kullanıcıyı galeriye götürme
         let picker = UIImagePickerController()
         picker.delegate = self
         picker.sourceType = .photoLibrary
@@ -57,6 +58,8 @@ class UploadViewController: UIViewController, UIImagePickerControllerDelegate, U
     @IBAction func uploadClicked(_ sender: Any) {
         
         
+        
+        
         let storage = Storage.storage()
         let storageReference = storage.reference()
         
@@ -79,7 +82,37 @@ class UploadViewController: UIViewController, UIImagePickerControllerDelegate, U
                             let imageUrl = url?.absoluteString
                             
                             
-                            //DATABASE
+                            //DATABASE-firestore
+                            
+                            
+                            let firestoreDatabase = Firestore.firestore()
+                            
+                            var firestoreReference : DocumentReference? = nil
+                            
+                            let firestorePost = ["imageUrl" : imageUrl!, "postedBy" : Auth.auth().currentUser!.email!, "postComment" : self.textField.text!,"date" : FieldValue.serverTimestamp(), "likes" : 0] as [String : Any]
+                            
+                            firestoreReference = firestoreDatabase.collection("Posts").addDocument(data: firestorePost, completion: { (error) in
+                                
+                                
+                                if error != nil {
+                                    
+                                    self.makeAlert(titleInput: "Error", messageInput: error!.localizedDescription)
+                                    
+                                } else {
+                                    
+                                    
+                                    self.imageView.image = UIImage(named: "select")
+                                    self.textField.text = ""
+                                    self.tabBarController?.selectedIndex = 0
+                                    
+                                    
+                                    
+                                }
+                            })
+                            
+                            
+                            
+                            
                             
                         }
                         
